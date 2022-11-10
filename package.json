@@ -8,12 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@cometchat-pro/chat": "3.0.10",
+    "@mdi/js": "^7.0.96",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "pinia": "^2.0.23",
+    "sass": "^1.56.1",
+    "vue": "^3.2.13",
+    "vuetify": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@mdi/font": "^7.0.96",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",

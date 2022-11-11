@@ -23,7 +23,7 @@
 
     <v-navigation-drawer v-if="loggedIn" floating permanent>
       <v-list density="compact" nav>
-        <v-list-item v-for="group in groups" :key="group.guid" :value="group.guid">
+        <v-list-item v-for="group in groups" :key="group.guid" :value="group.guid" @click="onGroupSelected(group)">
           <v-avatar :image="group.icon"></v-avatar>
           {{ group.name }}
         </v-list-item>
@@ -32,8 +32,8 @@
 
     <v-main v-if="loggedIn">
       <div class="message-input-group">
-        <v-text-field variant="outlined" label="" hide-details="true" class="pa-0"></v-text-field>
-        <v-btn color="primary">Send</v-btn>
+        <v-text-field variant="outlined" label="" hide-details="true" class="pa-0" v-model="message"></v-text-field>
+        <v-btn color="primary" @click="sendMessage">Send</v-btn>
       </div>
     </v-main>
 
@@ -53,9 +53,10 @@ import { CometChat } from "@cometchat-pro/chat";
 const theme = ref('dark')
 const myAccount = ref({})
 const loggedIn = ref(false)
-const UID = ref("superhero3")
+const UID = ref("superhero1")
 const groups = ref([])
-
+const message = ref('')
+let selectedGroup = {}
 
 function changeTheme() {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
@@ -128,6 +129,26 @@ const logOut = () => {
       loggedIn.value = false
     }, error => {
       console.log("Logout failed with exception:", { error });
+    }
+  );
+}
+
+const onGroupSelected = (group) => {
+  selectedGroup = group
+}
+
+const sendMessage = () => {
+  let receiverID = selectedGroup.guid;
+  let messageText = message.value;
+  let receiverType = CometChat.RECEIVER_TYPE.GROUP;
+  let textMessage = new CometChat.TextMessage(receiverID, messageText, receiverType);
+
+  CometChat.sendMessage(textMessage).then(
+    message => {
+      console.log("Message sent successfully:", message);
+      message.value = ''      
+    }, error => {
+      console.log("Message sending failed with error:", error);
     }
   );
 }

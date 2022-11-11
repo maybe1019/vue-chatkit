@@ -31,7 +31,10 @@
     </v-navigation-drawer>
 
     <v-main v-if="loggedIn">
-
+      <div class="message-input-group">
+        <v-text-field variant="outlined" label="" hide-details="true" class="pa-0"></v-text-field>
+        <v-btn color="primary">Send</v-btn>
+      </div>
     </v-main>
 
     <v-main v-else class="d-flex flex-column align-center justify-center">
@@ -133,4 +136,28 @@ const logOut = () => {
 
 <style>
 @import './assets/scss/style.scss';
+
+.message-input-group {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 256px);
+
+  display: flex;
+  gap: 18px;
+  align-items: center;
+
+  padding: 8px 14px;
+}
+
+.message-input-group input {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.v-text-field .v-input__control .v-input__slot {
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+}
 </style>
